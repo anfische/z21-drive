@@ -22,3 +22,6 @@ steps:
     jdkVersionOption: '1.8'
     sonarQubeRunAnalysis: false
     spotBugsAnalysis: false
+
+- script: ls -la
+  displayName: 'List directories'
