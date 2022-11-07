@@ -49,7 +49,7 @@ class Z21ActionLanSetBroadcastFlags extends Z21Action{
     public Z21ActionLanSetBroadcastFlags(boolean receiveGlobalBroadcasts, boolean receiveAllLocos, boolean receiveCentreStatus, boolean receiveRmBus) {
         byteRepresentation.add((byte) 0x50);
         byteRepresentation.add((byte) 0x00);
-        addDataToByteRepresentation(new Object[]{receiveGlobalBroadcasts, receiveAllLocos, receiveCentreStatus});
+        addDataToByteRepresentation(new Object[]{receiveGlobalBroadcasts, receiveAllLocos, receiveCentreStatus, receiveRmBus});
         addLenByte();
     }
 
