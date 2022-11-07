@@ -3,10 +3,9 @@ package z21Drive.actions;
 import z21Drive.LocoAddressOutOfRangeException;
 
 /**
- * Used to retrieve loco status from z21.
- * Supports loco addresses up to 128.
+ * Used to send turnout command to z21
  */
-public class Z21ActionGetLanXSetTurnout extends Z21Action{
+public class Z21ActionLanXSetTurnout extends Z21Action{
 
     /**
      * @param turnoutAddress Address of the turnout to request info of.
@@ -14,7 +13,7 @@ public class Z21ActionGetLanXSetTurnout extends Z21Action{
      * @param active sets the decoder status
      * @throws LocoAddressOutOfRangeException Thrown if loco address is out of supported range.
      */
-    public Z21ActionGetLanXSetTurnout(int turnoutAddress, byte position, boolean active) throws LocoAddressOutOfRangeException{
+    public Z21ActionLanXSetTurnout(int turnoutAddress, byte position, boolean active) throws LocoAddressOutOfRangeException{
         byteRepresentation.add(Byte.decode("0x40"));
         byteRepresentation.add(Byte.decode("0x00"));
         if (turnoutAddress < 1)

@@ -24,3 +24,6 @@ gradlew.bat
 
 # IntelliJ
 /out/
+
+# Mac
+.DS_Store
