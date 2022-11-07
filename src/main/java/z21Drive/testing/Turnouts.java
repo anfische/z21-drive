@@ -2,7 +2,7 @@ package z21Drive.testing;
 
 import z21Drive.LocoAddressOutOfRangeException;
 import z21Drive.Z21;
-import z21Drive.actions.Z21ActionGetLanXSetTurnout;
+import z21Drive.actions.Z21ActionLanXSetTurnout;
 import z21Drive.broadcasts.BroadcastTypes;
 import z21Drive.broadcasts.Z21Broadcast;
 import z21Drive.broadcasts.Z21BroadcastLanXTurnoutsInfo;
@@ -48,16 +48,16 @@ public class Turnouts implements Runnable{
 
         
         try {
-            z21.sendActionToZ21(new Z21ActionGetLanXSetTurnout(address, (byte) 1, true));
+            z21.sendActionToZ21(new Z21ActionLanXSetTurnout(address, (byte) 1, true));
             Thread.sleep(150);
-            z21.sendActionToZ21(new Z21ActionGetLanXSetTurnout(address, (byte) 1, false));
+            z21.sendActionToZ21(new Z21ActionLanXSetTurnout(address, (byte) 1, false));
             
             Thread.sleep(1500);
             
             
-            z21.sendActionToZ21(new Z21ActionGetLanXSetTurnout(address, (byte) 0, true));
+            z21.sendActionToZ21(new Z21ActionLanXSetTurnout(address, (byte) 0, true));
             Thread.sleep(150);
-            z21.sendActionToZ21(new Z21ActionGetLanXSetTurnout(address, (byte) 0, false));
+            z21.sendActionToZ21(new Z21ActionLanXSetTurnout(address, (byte) 0, false));
 
             
             
@@ -67,7 +67,7 @@ public class Turnouts implements Runnable{
         
         while (!finished){}
         
-        System.out.println("shuddown");
+        System.out.println("shutdown");
         z21.shutdown();
     }
 }
