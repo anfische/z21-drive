@@ -11,7 +11,7 @@ import java.nio.ByteOrder;
  * @author grizeldi
  */
 public class BroadcastFlagHandler {
-    private static boolean receiveGlobalBroadcasts = true, receiveAllLocos, receiveCentreStatus;
+    private static boolean receiveGlobalBroadcasts = true, receiveAllLocos, receiveCentreStatus, receiveRmBus;
 
     public static void setReceive(BroadcastFlags flag, boolean receive){
         switch (flag){
@@ -24,10 +24,12 @@ public class BroadcastFlagHandler {
             case CENTRE_STATUS:
                 receiveCentreStatus = receive;
                 break;
+            case RECEIVE_RM_BUS:
+                receiveRmBus = receive;
         }
         //Send updated data to z21
         Z21 z21 = Z21.instance;
-        z21.sendActionToZ21(new Z21ActionLanSetBroadcastFlags(receiveGlobalBroadcasts, receiveAllLocos, receiveCentreStatus));
+        z21.sendActionToZ21(new Z21ActionLanSetBroadcastFlags(receiveGlobalBroadcasts, receiveAllLocos, receiveCentreStatus, receiveRmBus));
     }
 
     public static boolean isReceiveGlobalBroadcasts() {
@@ -44,7 +46,7 @@ public class BroadcastFlagHandler {
 }
 
 class Z21ActionLanSetBroadcastFlags extends Z21Action{
-    public Z21ActionLanSetBroadcastFlags(boolean receiveGlobalBroadcasts, boolean receiveAllLocos, boolean receiveCentreStatus) {
+    public Z21ActionLanSetBroadcastFlags(boolean receiveGlobalBroadcasts, boolean receiveAllLocos, boolean receiveCentreStatus, boolean receiveRmBus) {
         byteRepresentation.add((byte) 0x50);
         byteRepresentation.add((byte) 0x00);
         addDataToByteRepresentation(new Object[]{receiveGlobalBroadcasts, receiveAllLocos, receiveCentreStatus});
@@ -62,6 +64,9 @@ class Z21ActionLanSetBroadcastFlags extends Z21Action{
         }
         if ((Boolean) objs[2]){
             data |= 0x00000100;
+        }
+        if ((Boolean) objs[3]){
+            data |= 0x00000002;
         }
         //Change order to little endian
         ByteBuffer buff = ByteBuffer.allocate(4);

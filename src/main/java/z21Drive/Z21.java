@@ -23,8 +23,8 @@ import z21Drive.responses.*;
  */
 public class Z21 implements Runnable{
     public static final Z21 instance = new Z21();
-    private static final String host = "192.168.0.111";
-    private static final int port = 21105;
+    private static final String HOST = "192.168.0.111";
+    private static final int PORT = 21105;
     private boolean exit = false;
     private List<Z21ResponseListener> responseListeners = new ArrayList<Z21ResponseListener>();
     private List<Z21BroadcastListener> broadcastListeners = new ArrayList<Z21BroadcastListener>();
@@ -35,7 +35,7 @@ public class Z21 implements Runnable{
         Logger.getLogger("Z21 init").info("Z21 initializing");
         Thread listenerThread = new Thread(this);
         try {
-            socket = new DatagramSocket(port);
+            socket = new DatagramSocket(PORT);
         }catch (SocketException e){
             Logger.getLogger("Z21 init").warning("Failed to open socket to Z21..." + e);
         }
@@ -86,9 +86,9 @@ public class Z21 implements Runnable{
     public synchronized boolean sendActionToZ21(Z21Action action){
         DatagramPacket packet = PacketConverter.convert(action);
         try {
-            InetAddress address = InetAddress.getByName(host);
+            InetAddress address = InetAddress.getByName(HOST);
             packet.setAddress(address);
-            packet.setPort(port);
+            packet.setPort(PORT);
             socket.send(packet);
         }catch (IOException e){
             Logger.getLogger("Z21 sender").warning("Failed to send message to z21... " + e);
@@ -238,6 +238,8 @@ class PacketConverter {
             return new Z21BroadcastLanXShortCircuit(newArray);
         else if (header1 == 0x40 && header2 == 0x00 && xHeader == 0x43)
             return new Z21BroadcastLanXTurnoutsInfo(newArray);
+        else if (header1 == 0x80 && header2 == 0x00)
+            return new Z21BroadcastLanRmBusDataChanged(newArray);
         else {
             Logger.getLogger("Z21 Receiver").warning("Received unknown message. Array:");
             for (byte b : newArray)

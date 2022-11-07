@@ -11,4 +11,5 @@ public enum BroadcastTypes {
     LAN_X_PROGRAMMING_MODE,
     LAN_X_SHORT_CIRCUIT,
     LAN_X_GET_TURNOUT_INFO,
+    LAN_RMBUS_DATACHANGED
 }
