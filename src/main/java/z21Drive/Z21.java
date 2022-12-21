@@ -238,13 +238,15 @@ class PacketConverter {
             return new Z21BroadcastLanXShortCircuit(newArray);
         else if (header1 == 0x40 && header2 == 0x00 && xHeader == 0x43)
             return new Z21BroadcastLanXTurnoutsInfo(newArray);
-        else if (header1 == 0x80 && header2 == 0x00)
+        else if (header1 == -128 && header2 == 0x00)
             return new Z21BroadcastLanRmBusDataChanged(newArray);
         else {
             Logger.getLogger("Z21 Receiver").warning("Received unknown message. Array:");
             for (byte b : newArray)
                 System.out.print("0x" + String.format("%02X ", b));
             System.out.println();
+            System.out.println("header1: " + header1);
+            System.out.println("header2: "+ header2);
         }
         return null;
     }

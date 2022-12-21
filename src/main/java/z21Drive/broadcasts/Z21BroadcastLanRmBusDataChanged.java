@@ -29,15 +29,21 @@ public class Z21BroadcastLanRmBusDataChanged extends Z21Broadcast{
     }
     
     public String getFeedbackStatusString(){
-        String feedbackStatusString = "";
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < 10; i++){
-            feedbackStatusString += "Feedback Module: " + i;
-            System.out.println("Feedback Module: " + i);
-            for(int j = 0; j < 0; j++){
-                feedbackStatusString += "\n\t" + j + ": " + feedbackStatus[i][j];
+            sb.append("Module: ");
+            sb.append(i);
+            sb.append("\n");
+            for(int j = 0; j < 8; j++){
+                sb.append("Contact ");
+                sb.append(j+1);
+                sb.append(": ");
+                sb.append(feedbackStatus[i][j]);
+                sb.append(" | ");
             }
+            sb.append("\n\n");
         }
-        return feedbackStatusString;
+        return sb.toString();
     }
     
     private byte getBit(byte Byte, int position){
