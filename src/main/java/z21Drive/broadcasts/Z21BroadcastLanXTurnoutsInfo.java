@@ -4,7 +4,7 @@ package z21Drive.broadcasts;
  * It represents the state of a turnout.
  */
 public class Z21BroadcastLanXTurnoutsInfo extends Z21Broadcast{
-    private int turnoutAddres;
+    private int turnoutAddress;
     private int position;
 
     public Z21BroadcastLanXTurnoutsInfo(byte[] initArray) {
@@ -19,13 +19,13 @@ public class Z21BroadcastLanXTurnoutsInfo extends Z21Broadcast{
     	byte adr_MSB = byteRepresentation [5];
         byte adr_LSB = byteRepresentation [6];
         
-        turnoutAddres = (adr_MSB & 0x3F) << 8 | adr_LSB;
+        turnoutAddress = (adr_MSB & 0x3F) << 8 | adr_LSB;
         position =  byteRepresentation [7] & 0x03;
     }
 
     public int getTurnoutAddress()
     {
-    	return turnoutAddres;
+    	return turnoutAddress;
     }
     
     public int getPosition()

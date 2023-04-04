@@ -23,7 +23,7 @@ import z21Drive.responses.*;
  */
 public class Z21 implements Runnable{
     public static final Z21 instance = new Z21();
-    private static final String HOST = "192.168.0.111";
+    private static final String HOST = "192.168.178.111";
     private static final int PORT = 21105;
     private boolean exit = false;
     private List<Z21ResponseListener> responseListeners = new ArrayList<Z21ResponseListener>();
